@@ -18,6 +18,11 @@ uint32_t read_file(const char* filename) {
     }
 
     size_t read_size = fread(&number, sizeof(uint32_t), 1, file);
+    if (read_size != 1) {
+        perror("Error reading file");
+        fclose(file);
+        exit(EXIT_FAILURE);
+    }
     fclose(file);
     return shift(number);
 }
