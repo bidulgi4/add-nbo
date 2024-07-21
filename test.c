@@ -12,10 +12,13 @@ uint32_t shift(uint32_t n) {
 uint32_t read_file(const char* filename) {
     FILE *file = fopen(filename, "rb");
     uint32_t number;
-    size_t read_size = fread(&number, sizeof(uint32_t), 1, file);
+    if (file == NULL){
+	    perror("error opening file");
+	    exit(EXIT_FAILURE);
+    }
 
+    size_t read_size = fread(&number, sizeof(uint32_t), 1, file);
     fclose(file);
-    printf("%x\n",number);
     return shift(number);
 }
 
